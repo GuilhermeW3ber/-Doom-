@@ -1,3 +1,5 @@
+//A bibliotéca continua comproblemas então ainda não consigo fazer sprites ou transição de animações  :I
+
 const Engine = Matter.Engine;
 const Render = Matter.Render;
 const World = Matter.World;
@@ -7,7 +9,8 @@ const Body = Matter.Body;
 const Composites = Matter.Composites;
 const Composite = Matter.Composite;
 
-var marine, m9Sound;
+var marine, m9Sound, skull, head;
+var marineAnimation=[];
 var enemiesGroup;
 var dot;
 
@@ -24,10 +27,19 @@ function setup()
   engine = Engine.create();
   world = engine.world;
 
+  head=new MarineHead(65,630,120,120);
+  skull= new Skull(20,60,50,50);
   marine=new Marine(250,500,400,400);
   ground= new Ground(250,690,500,10);
-  enemies= new Enemies(random(20,480),random(60,400),20,20);
- // dot=new Dot();
+  enemies= new Enemies(random(200,480),random(60,400));
+
+
+
+ //enemiesGroup.add(enemies)
+ // marine=createSprite(250,500,400,400);
+ // marine.setImage("marine1.png");
+ // marine.scale=?
+  dot=new Dot(10,10);
 
   rectMode(CENTER);
   ellipseMode(RADIUS);
@@ -40,16 +52,19 @@ function draw(){
   Engine.update(engine);
 
   //if(keyPressed("space")){
-  //  marine.loadImage("marine2.png");
   //  m9Sound.play();
-    //if(dot.body.x<enemies.body.x-20 || dot.body.x<enemies.body.x+20 ){
-    //  enemies.delete();
-    //}
+  //marine.setImage("marine2.png");
   //}
-  //if(mousePressed()){
-  //  marine.loadImage("marine2.png");
-  //  m9Sound.play();
+  //if(keyReleased("space")){
+  //  marine.setImage("marine1.png");
   //}
+  //if(keyIsDown("space") && dot.x<enemie.x+10 && dot.x>enemie.x-10){
+  //  enemiesGroup.deleteEach();
+  //}
+
+  dot.display();
+  skull.display();
+  head.display();
   enemies.display();
   marine.display();
 }
