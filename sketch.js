@@ -18,8 +18,8 @@ var dot;
 
 let engine;
 let world;
-function Preload(){
-  m9Sound.loadSound("m9.mp3");
+function preload(){
+  m9Sound=loadSound("m9.mp3");
 }
 function setup() 
 {
@@ -36,7 +36,7 @@ function setup()
 
 
  //enemiesGroup.add(enemies)
- // marine=createSprite(250,500,400,400);
+  marine=createSprite(250,500,400,400);
  // marine.setImage("marine1.png");
  // marine.scale=?
   dot=new Dot(10,10);
@@ -67,6 +67,11 @@ function draw(){
   head.display();
   enemies.display();
   marine.display();
+}
+function keyPressed(){
+  if(keyCode===32){
+    m9Sound.play();
+  }
 }
 
 
