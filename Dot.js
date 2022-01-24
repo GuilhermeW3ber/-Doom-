@@ -7,7 +7,6 @@ class Dot{
         World.add(world, this.body);
     }
     display(){
-        //var pos=this.body.position;
         var angle = this.body.angle;
         push();
         this.body.position.x = mouseX;
