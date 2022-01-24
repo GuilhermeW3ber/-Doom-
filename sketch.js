@@ -9,9 +9,9 @@ var Composite = Matter.Composite;
 
 var marine, m9Sound, skull, head;
 var marineAn, MarioneShootAn;
-var enemiesGroup;
+var enemiesGroup=[];
 var dot;
-var buru;
+var buru, enemies;
 var marineSpriteData, marineSpriteJSON;
 var marines=[];
 var marinesAnimation=[];
@@ -44,22 +44,22 @@ function setup()
   marine.addAnimation("shoot", MarioneShootAn);
   marine.addAnimation("stay", marineAn);
   marine.changeAnimation("stay");
-  marine.scale=0.08
+  marine.scale=0.08;
 
   dot=new Dot(10,10);
   head=new MarineHead(435,65,120,120);
   skull= new Skull(20,60,50,50);
   ground= new Ground(250,690,500,10);
 
- //enemiesGroup.add(enemies)
+ //enemiesGroup.add(enemies);
  //enemies= new Enemies(100,200,100,100);
 
- var marineFrames = marineSpriteJSON.frames;
+ /*var marineFrames = marineSpriteJSON.frames;
  for (var i = 0; i < marineFrames.length; i++) {
     var pos = marineFrames[i].position;
     var img = marineSpriteData.get(pos.x, pos.y, pos.w, pos.h);
     marinesAnimation.push(img);
-  }
+  }*/
 
 
 
@@ -74,11 +74,13 @@ function draw(){
   Engine.update(engine);
 
   if(keyIsDown("space") && dot.x<enemie.x+10 && dot.x>enemie.x-10){
-    enemiesGroup.deleteEach();
+    //enemiesGroup.deleteEach();
   }
   if(keyIsDown(UP_ARROW)){
     createEnemie();
-    enemies.display();
+    for(var i=0; i<enemiesGroup.length; i++){
+      enemiesGroup[i].remove(0);
+    }
   }
 
   fill("red");
@@ -90,12 +92,19 @@ function draw(){
   head.display();
   marine.display();
   //createEnemie();
-  //enemies.display();
+
+  if(enemiesGroup[enemiesGroup.length-1]!==undefined){
+    for(var i=0; i<enemiesGroup.length; i++){
+      enemiesGroup[i].display();
+    }
+    
+  }
+
   drawSprites();
 }
 function keyPressed(){
   if(keyCode===32){
-    //m9Sound.play();
+    m9Sound.play();
     marine.changeAnimation("shoot", MarioneShootAn);
   }
   //if(keyCode===87){
@@ -108,9 +117,10 @@ function keyReleased(){
   }
 }
 function createEnemie(){
-  if (frameCount %20===1){
+  if (frameCount %20===0){
     enemies= new Enemies(random(200,480),random(60,400));
-
+    enemiesGroup.push(enemies);
+    console.log(enemies);
   }
 }
 function showMarines() {
