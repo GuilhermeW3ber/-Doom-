@@ -12,7 +12,7 @@ class Enemies{
     }
     remove(index) {
         setTimeout(() => {
-          Matter.World.remove(world, enemiesGroup[index].body);
+          Matter.World.remove(world, enemiesGroup[index].Body);
           delete enemiesGroup[index];
         }, 5000);
       }
