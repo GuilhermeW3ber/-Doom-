@@ -13,7 +13,7 @@ const Body = Matter.Body;
 const Composites = Matter.Composites;
 const Composite = Matter.Composite;
 
-var marine, m9Sound, skull, head;
+var marine, m9Sound, skull, head, head2;
 var marineAn, MarioneShootAn;
 var enemiesGroup=[];
 var dot;
@@ -23,22 +23,26 @@ var marines=[];
 var marinesAnimation=[];
 var bloodH1,bloodH2, bloodH3, bloodH4, bloodH5;
 
-var points=0
-
-//enemiesGroup= new Group();
+var points=0;
+var shots=0;
 
 let engine;
 let world;
 
 function preload(){
   marineAn=loadAnimation("marine1.png");
+  marineImg=loadImage("marine1An.png");
+  marineImg2=loadImage("blood1.png");
+  marineImg3=loadImage("blood2.png");
+  marineImg4=loadImage("blood3.png");
+  marineImg4=loadImage("blood4.png");
   MarioneShootAn=loadAnimation("marine2.png","marine3.png","marine4.png","marine5.png");
   marineSpriteJSON=loadJSON("marineSheet.json"); 
   marineSpriteData=loadAnimation("Spritesheet.png");
   m9Sound=loadSound("m9.mp3");
   backgroundMusic=loadSound("DoomMusic.mp3");
   backgroundGif=loadImage("matrixCode.gif");
-  MarioneShootAn.scale=6;
+  //MarioneShootAn.scale=6;
   //MarioneShootAn[1].scale=6;
 }
 
@@ -48,6 +52,10 @@ function setup()
   createCanvas(500,700);
   engine = Engine.create();
   world = engine.world;
+
+  head2=createSprite(435,65,120,120);
+  head2.addImage(marineImg)
+  head2.scale=0.3;
 
   marine=createSprite(250,525,400,400);
   marine.addAnimation("shoot", MarioneShootAn);
@@ -80,14 +88,24 @@ function setup()
 }
 
 function draw(){
-  background(backgroundGif);
+  background("gray");
   Engine.update(engine);
 
   if(frameCount %53===0){
-    
-
+      
   }
 
+  if(shots===20){
+    head2.addImage(marineImg2);
+  }
+
+  if(shots===50){
+    head2.addImage(marineImg3);
+  }
+
+  if(shots===70){
+    head2.addImage(marineImg4);
+  }
 
   if(keyCode===32 && dot.x<30 || keyCode===32 && dot.x>30 ){
     enemiesGroup.remove(enemiesGroup[i]);
@@ -107,7 +125,7 @@ function draw(){
 
   dot.display();
   skull.display();
-  head.display();
+  //head.display();
   marine.display();
 
   if(enemiesGroup[enemiesGroup.length-1]!==undefined){
@@ -124,6 +142,8 @@ function keyPressed(){
     m9Sound.play();
     marine.changeAnimation("shoot", MarioneShootAn);
     console.log("keyPressed 32");
+    shots=shots+1;
+    console.log(shots);
   }
 }
 

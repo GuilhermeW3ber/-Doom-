@@ -32,8 +32,4 @@ class Enemies{
             pop();
         }
     }
-
-
-
-
 }
